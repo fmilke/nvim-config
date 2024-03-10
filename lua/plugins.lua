@@ -121,7 +121,7 @@ require("lazy").setup({
                 vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts)
                 vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end, opts)
                 vim.keymap.set('n', '<leader>K', function() vim.lsp.buf.hover() end, opts)
-                vim.keymap.set('i', '<leader><C-h>', function() vim.lsp.buf.signature_help() end, opts)
+                vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
             end)
 
             lsp.setup()
