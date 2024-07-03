@@ -130,11 +130,29 @@ require("lazy").setup({
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-         -- your configuration comes here
-         -- or leave it empty to use the default settings
-         -- refer to the configuration section below
-        },
+        opts = {},
+    },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local harpoon = require("harpoon")
+
+            harpoon:setup()
+
+            vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+            vim.keymap.set("n", "<C-e>", function () harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
+            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
+            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+
+            vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end)
+            vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end)
+                
+        end,
     },
     {
         "stevearc/oil.nvim",
