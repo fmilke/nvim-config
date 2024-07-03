@@ -116,12 +116,12 @@ require("lazy").setup({
 
             lsp.on_attach(function(client, buffer)
                 vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-                vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set('n', '<leader>vrr', function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end, opts)
-                vim.keymap.set('n', '<leader>K', function() vim.lsp.buf.hover() end, opts)
-                vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
+                vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, { desc = 'Rename symbol' })
+                vim.keymap.set('n', '<leader>vrr', function() vim.lsp.buf.references() end, { desc = 'Show references' })
+                vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, { desc = 'Code Actions' })
+                vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end, { desc = 'Go To Definition' })
+                vim.keymap.set('n', '<leader>K', function() vim.lsp.buf.hover() end, { desc = 'Hover' })
+                vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, { desc = 'Show signature' })
             end)
 
             lsp.setup()
@@ -136,4 +136,15 @@ require("lazy").setup({
          -- refer to the configuration section below
         },
     },
+    {
+        "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function() 
+            require("oil").setup {
+                columns = { "icon", "size" },
+            }
+
+            vim.keymap.set('n', '-', "<CMD>Oil<CR>", { desc = 'Open parent directory ' })
+        end,
+    }
 })
