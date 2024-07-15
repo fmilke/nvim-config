@@ -10,3 +10,6 @@ vim.keymap.set("n", "<leader>ps", function()
     end
 end, {})
 
+vim.keymap.set("n", "<C-d>", function()
+    vim.diagnostic.open_float()
+end, { desc = "show line diagnostics" })

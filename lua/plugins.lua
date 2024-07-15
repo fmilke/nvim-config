@@ -141,16 +141,16 @@ require("lazy").setup({
 
             harpoon:setup()
 
-            vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
-            vim.keymap.set("n", "<C-e>", function () harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+            vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { desc = "Append to harpoon list" })
+            vim.keymap.set("n", "<C-e>", function () harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Open harpoon" })
 
-            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Open first harpooned buffer" })
+            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Open second harpooned buffer" })
+            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Open third harpooned buffer" })
+            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Open fourth harpooned buffer" })
 
-            vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end)
-            vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end)
+            vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end, { desc = "Go to previous harpooned buffer" })
+            vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end, { desc = "Go to next harpooned buffer" })
                 
         end,
     },
@@ -164,5 +164,23 @@ require("lazy").setup({
 
             vim.keymap.set('n', '-', "<CMD>Oil<CR>", { desc = 'Open parent directory ' })
         end,
-    }
+    },
+
+    -- debug adapter protocol
+    {
+        "mfussenegger/nvim-dap",
+        config = function()
+            vim.keymap.set("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", { desc = "Set breakpoint with condition" })
+            vim.keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", { desc = "Toggle breapoint" })
+            vim.keymap.set("n", "<leader>dr", function() require'dap'.repl.open() end, { desc = "Open dap menu" })
+        end,
+    },
+    { "rcarriga/nvim-dap-ui" },
+    {
+        "NicholasMata/nvim-dap-cs",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = function()
+            require('dap-cs').setup()
+        end,
+    },
 })
