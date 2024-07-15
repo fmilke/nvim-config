@@ -183,4 +183,5 @@ require("lazy").setup({
             require('dap-cs').setup()
         end,
     },
+    { "tpope/vim-fugitive" },
 })
