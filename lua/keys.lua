@@ -15,3 +15,4 @@ vim.keymap.set("n", "<C-d>", function()
 end, { desc = "show line diagnostics" })
 
 vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "change casing" })
+

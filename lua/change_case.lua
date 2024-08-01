@@ -35,7 +35,7 @@ local change_casing_int = function(flag)
     vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { '0' })
     local sel = get_text(s_start, s_end)
 
-    Vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { tostring(#(vim.fn.split(sel, '\n'))) })
+    vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { tostring(#(vim.fn.split(sel, '\n'))) })
     vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { '1' })
     local out = vim.system({'recase', flag, '-t', sel}, { stderr = false, text = true }):wait();
     vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { 'code', tostring(out.code) })
@@ -53,6 +53,16 @@ local flags = {
     '-s',
     '-k',
 }
+
+local to_lower_camel_case = function (lines)
+    local result = {}
+
+    for i, k in ipairs(lines) do
+    end
+
+    return result
+end
+
 
 local change_casing = function ()
     vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { 'jooohoho' })
