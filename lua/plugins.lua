@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then 
+if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    {   
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
@@ -151,13 +151,13 @@ require("lazy").setup({
 
             vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end, { desc = "Go to previous harpooned buffer" })
             vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end, { desc = "Go to next harpooned buffer" })
-                
+
         end,
     },
     {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function() 
+        config = function()
             require("oil").setup {
                 columns = { "icon", "size" },
             }

@@ -135,7 +135,6 @@ M.to_kebab_case = function(lines)
     return to_interspersed_case(lines, '-')
 end
 
-
 M.change_casing = function ()
     local i = vim.fn.inputlist({ 'Select casing:', '1. UpperCamelCase', '2. lowerCamelCase', '3. snake_case',  '4. kebab-case' })
 
