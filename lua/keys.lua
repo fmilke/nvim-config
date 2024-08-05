@@ -14,5 +14,9 @@ vim.keymap.set("n", "<C-d>", function()
     vim.diagnostic.open_float()
 end, { desc = "show line diagnostics" })
 
-vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "change casing" })
+--vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "change casing" })
+vim.keymap.set('x', "<leader>cc",
+    function ()
+        require'change_case'.change_casing()
+    end, { desc = "change casing" })
 
