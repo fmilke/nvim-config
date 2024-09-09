@@ -165,7 +165,6 @@ require("lazy").setup({
             vim.keymap.set('n', '-', "<CMD>Oil<CR>", { desc = 'Open parent directory ' })
         end,
     },
-
     -- debug adapter protocol
     {
         "mfussenegger/nvim-dap",
@@ -183,6 +182,9 @@ require("lazy").setup({
             require('dap-cs').setup()
         end,
     },
+    -- git plugin
     { "tpope/vim-fugitive" },
+    -- advanced substitute
+    { "tpope/vim-abolish" },
 })
 
