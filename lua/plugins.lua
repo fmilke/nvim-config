@@ -186,5 +186,7 @@ require("lazy").setup({
     { "tpope/vim-fugitive" },
     -- advanced substitute
     { "tpope/vim-abolish" },
+    -- open text in other applications
+    { "chrishrb/gx.nvim" },
 })
 
