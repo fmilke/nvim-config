@@ -20,6 +20,8 @@ vim.opt.updatetime = 50
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 
+vim.opt.clipboard = "unnamedplus"
+
 -- key maps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open explorer" })
