@@ -15,3 +15,8 @@ vim.keymap.set("n", "<C-d>", function()
 end, { desc = "Show line diagnostics" })
 
 vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "Change casing" })
+
+vim.keymap.set('n', "<leader>oi", function ()
+    vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
+end, { desc = "Organize typescript imports" })
+
