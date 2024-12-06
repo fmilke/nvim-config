@@ -14,9 +14,27 @@ vim.keymap.set("n", "<C-d>", function()
     vim.diagnostic.open_float()
 end, { desc = "Show line diagnostics" })
 
+-- change casing
 vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "Change casing" })
 
+-- organize imports
 vim.keymap.set('n', "<leader>oi", function ()
-    vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
+
+    local bufnr = vim.api.nvim_get_current_buf()
+    local lsps = vim.lsp.get_clients({
+        bufnr = bufnr,
+    })
+
+    for _, lsp in ipairs(lsps) do
+        if lsp.name == 'ts_ls' then
+            lsp:exec_cmd({
+                title = "Organize Imports",
+                command = "_typescript.organizeImports",
+                bufnr = bufnr,
+                arguments = {vim.fn.expand("%:p")},
+            })
+        end
+    end
+
 end, { desc = "Organize typescript imports" })
 
