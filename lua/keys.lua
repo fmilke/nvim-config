@@ -5,7 +5,7 @@ vim.keymap.set("n", "<C-L>", ":noh<CR>", { desc = "Clear search" })
 vim.keymap.set("n", "<leader>pf", telescope_builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>ps", function()
     local needle = vim.fn.input("Grep > ")
-    if not(needle == nil or needle == "") then
+    if not (needle == nil or needle == "") then
         telescope_builtin.grep_string({ search = needle })
     end
 end, { desc = "Search for files containing keyword" })
@@ -15,11 +15,10 @@ vim.keymap.set("n", "<C-d>", function()
 end, { desc = "Show line diagnostics" })
 
 -- change casing
-vim.keymap.set('x', "<leader>cc", require'change_case'.change_casing, { desc = "Change casing" })
+vim.keymap.set('x', "<leader>cc", require 'change_case'.change_casing, { desc = "Change casing" })
 
 -- organize imports
-vim.keymap.set('n', "<leader>oi", function ()
-
+vim.keymap.set('n', "<leader>oi", function()
     local bufnr = vim.api.nvim_get_current_buf()
     local lsps = vim.lsp.get_clients({
         bufnr = bufnr,
@@ -31,10 +30,8 @@ vim.keymap.set('n', "<leader>oi", function ()
                 title = "Organize Imports",
                 command = "_typescript.organizeImports",
                 bufnr = bufnr,
-                arguments = {vim.fn.expand("%:p")},
+                arguments = { vim.fn.expand("%:p") },
             })
         end
     end
-
 end, { desc = "Organize typescript imports" })
-

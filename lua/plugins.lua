@@ -38,54 +38,54 @@ require("lazy").setup({
                     },
                 },
                 textobjects = {
-                select = {
-                  enable = true,
+                    select = {
+                        enable = true,
 
-                  -- Automatically jump forward to textobj, similar to targets.vim
-                  lookahead = true,
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
 
-                  keymaps = {
-                    -- You can use the capture groups defined in textobjects.scm
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    -- You can optionally set descriptions to the mappings (used in the desc parameter of
-                    -- nvim_buf_set_keymap) which plugins like which-key display
-                    ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                    -- You can also use captures from other query groups like `locals.scm`
-                    ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-                  },
-                  -- You can choose the select mode (default is charwise 'v')
-                  --
-                  -- Can also be a function which gets passed a table with the keys
-                  -- * query_string: eg '@function.inner'
-                  -- * method: eg 'v' or 'o'
-                  -- and should return the mode ('v', 'V', or '<c-v>') or a table
-                  -- mapping query_strings to modes.
-                  selection_modes = {
-                    ['@parameter.outer'] = 'v', -- charwise
-                    ['@function.outer'] = 'v', -- linewise
-                    ['@class.outer'] = '<c-v>', -- blockwise
-                  },
-                  -- If you set this to `true` (default is `false`) then any textobject is
-                  -- extended to include preceding or succeeding whitespace. Succeeding
-                  -- whitespace has priority in order to act similarly to eg the built-in
-                  -- `ap`.
-                  --
-                  -- Can also be a function which gets passed a table with the keys
-                  -- * query_string: eg '@function.inner'
-                  -- * selection_mode: eg 'v'
-                  -- and should return true of false
-                  include_surrounding_whitespace = true,
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            -- You can optionally set descriptions to the mappings (used in the desc parameter of
+                            -- nvim_buf_set_keymap) which plugins like which-key display
+                            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                            -- You can also use captures from other query groups like `locals.scm`
+                            ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+                        },
+                        -- You can choose the select mode (default is charwise 'v')
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * method: eg 'v' or 'o'
+                        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+                        -- mapping query_strings to modes.
+                        selection_modes = {
+                            ['@parameter.outer'] = 'v', -- charwise
+                            ['@function.outer'] = 'v',  -- linewise
+                            ['@class.outer'] = '<c-v>', -- blockwise
+                        },
+                        -- If you set this to `true` (default is `false`) then any textobject is
+                        -- extended to include preceding or succeeding whitespace. Succeeding
+                        -- whitespace has priority in order to act similarly to eg the built-in
+                        -- `ap`.
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * selection_mode: eg 'v'
+                        -- and should return true of false
+                        include_surrounding_whitespace = true,
+                    },
                 },
-              },
             })
         end,
     },
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.5",
-        dependencies = { {'nvim-lua/plenary.nvim'} },
+        dependencies = { { 'nvim-lua/plenary.nvim' } },
     },
     { "nvim-treesitter/nvim-treesitter-textobjects", },
     {
@@ -93,26 +93,26 @@ require("lazy").setup({
         branch = 'v1.x',
         dependencies = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         },
         config = function()
             local lsp = require('lsp-zero')
             lsp.preset('recommended')
-            lsp.ensure_installed({ 'lua_ls'})
+            lsp.ensure_installed({ 'lua_ls' })
 
             lsp.on_attach(function(client, buffer)
                 vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -155,16 +155,22 @@ require("lazy").setup({
             harpoon:setup()
 
             vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { desc = "Append to harpoon list" })
-            vim.keymap.set("n", "<C-e>", function () harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Open harpoon" })
+            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+                { desc = "Open harpoon" })
 
-            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Open first harpooned buffer" })
-            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Open second harpooned buffer" })
-            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Open third harpooned buffer" })
-            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Open fourth harpooned buffer" })
+            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end,
+                { desc = "Open first harpooned buffer" })
+            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end,
+                { desc = "Open second harpooned buffer" })
+            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end,
+                { desc = "Open third harpooned buffer" })
+            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end,
+                { desc = "Open fourth harpooned buffer" })
 
-            vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end, { desc = "Go to previous harpooned buffer" })
-            vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end, { desc = "Go to next harpooned buffer" })
-
+            vim.keymap.set("n", "<leader>bp", function() harpoon:list():prev() end,
+                { desc = "Go to previous harpooned buffer" })
+            vim.keymap.set("n", "<leader>bn", function() harpoon:list():next() end,
+                { desc = "Go to next harpooned buffer" })
         end,
     },
     {
@@ -182,9 +188,14 @@ require("lazy").setup({
     {
         "mfussenegger/nvim-dap",
         config = function()
-            vim.keymap.set("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", { desc = "Set breakpoint with condition" })
+            vim.keymap.set(
+                "n",
+                "<leader>B",
+                ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+                { desc = "Set breakpoint with condition" }
+            )
             vim.keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", { desc = "Toggle breapoint" })
-            vim.keymap.set("n", "<leader>dr", function() require'dap'.repl.open() end, { desc = "Open dap menu" })
+            vim.keymap.set("n", "<leader>dr", function() require 'dap'.repl.open() end, { desc = "Open dap menu" })
         end,
     },
     { "rcarriga/nvim-dap-ui" },
@@ -202,4 +213,3 @@ require("lazy").setup({
     -- open text in other applications
     { "chrishrb/gx.nvim" },
 })
-

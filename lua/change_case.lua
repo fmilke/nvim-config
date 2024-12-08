@@ -1,7 +1,7 @@
 local M = {}
 
 local get_int_fn_name = function(fn)
-    for k,v in pairs(M) do
+    for k, v in pairs(M) do
         if v == fn then
             return k
         end
@@ -24,7 +24,7 @@ local get_text = function(s_start, s_end)
     return lines
 end
 
-local get_vrange = function ()
+local get_vrange = function()
     local s_start = vim.fn.getpos('v')
     local s_end = vim.fn.getpos('.')
 
@@ -73,7 +73,7 @@ local to_interspersed_case = function(lines, delim)
     return result
 end
 
-local to_camel_case = function (lines, lowercase)
+local to_camel_case = function(lines, lowercase)
     local result = {}
 
     local state = {
@@ -119,11 +119,11 @@ local to_camel_case = function (lines, lowercase)
     return result
 end
 
-M.to_lower_camel_case = function (lines)
+M.to_lower_camel_case = function(lines)
     return to_camel_case(lines, true)
 end
 
-M.to_upper_camel_case = function (lines)
+M.to_upper_camel_case = function(lines)
     return to_camel_case(lines, false)
 end
 
@@ -135,14 +135,20 @@ M.to_kebab_case = function(lines)
     return to_interspersed_case(lines, '-')
 end
 
-M.change_casing = function ()
-    local i = vim.fn.inputlist({ 'Select casing:', '1. UpperCamelCase', '2. lowerCamelCase', '3. snake_case',  '4. kebab-case' })
+M.change_casing = function()
+    local i = vim.fn.inputlist({
+        'Select casing:',
+        '1. UpperCamelCase',
+        '2. lowerCamelCase',
+        '3. snake_case',
+        '4. kebab-case'
+    })
 
     local transformation = nil
     if i == 1 then
         transformation = M.to_upper_camel_case
     elseif i == 2 then
-       transformation = M.to_lower_camel_case
+        transformation = M.to_lower_camel_case
     elseif i == 3 then
         transformation = M.to_snake_case
     elseif i == 4 then
@@ -167,21 +173,23 @@ M.change_casing = function ()
 end
 
 
-local assert_test = function (fn, input_lines, expected_lines)
+local assert_test = function(fn, input_lines, expected_lines)
     local fn_name = get_int_fn_name(fn) or 'unknown'
 
     for i, expected in ipairs(expected_lines) do
         local input = input_lines[i]
-        local r = fn({input})[1] or '<nil>'
+        local r = fn({ input })[1] or '<nil>'
         if r ~= expected then
-            return "Failed " .. fn_name .. " line (" .. tostring(i) .. ") - expected " .. input .. " to be " .. expected .. " but was " .. r
+            return "Failed " ..
+                fn_name ..
+                " line (" .. tostring(i) .. ") - expected " .. input .. " to be " .. expected .. " but was " .. r
         end
     end
 
     return nil
 end
 
-M.assert_tests = function ()
+M.assert_tests = function()
     local lines = {
         "   kebab-case",
         "kebab-case  kebab-case",
@@ -194,66 +202,66 @@ M.assert_tests = function ()
     }
 
     return assert_test(
-        M.to_upper_camel_case,
-        lines,
-        {
-            "   KebabCase",
-            "KebabCase  KebabCase",
-            "   SnakeCase",
-            "SnakeCase  SnakeCase",
-            "   LowerCamelCase",
-            "LowerCamelCase  LowerCamelCase",
-            "   UpperCamelCase",
-            "UpperCamelCase  UpperCamelCase",
-        }
-    )
-    or
-    assert_test(
-        M.to_lower_camel_case,
-        lines,
-        {
-            "   kebabCase",
-            "kebabCase  kebabCase",
-            "   snakeCase",
-            "snakeCase  snakeCase",
-            "   lowerCamelCase",
-            "lowerCamelCase  lowerCamelCase",
-            "   upperCamelCase",
-            "upperCamelCase  upperCamelCase",
-        }
-    )
-    or
-    assert_test(
-        M.to_kebab_case,
-        lines,
-        {
-            "   kebab-case",
-            "kebab-case  kebab-case",
-            "   snake-case",
-            "snake-case  snake-case",
-            "   lower-camel-case",
-            "lower-camel-case  lower-camel-case",
-            "   upper-camel-case",
-            "upper-camel-case  upper-camel-case",
-        }
-    )
-    or
-    assert_test(
-        M.to_snake_case,
-        lines,
-        {
-            "   kebab_case",
-            "kebab_case  kebab_case",
-            "   snake_case",
-            "snake_case  snake_case",
-            "   lower_camel_case",
-            "lower_camel_case  lower_camel_case",
-            "   upper_camel_case",
-            "upper_camel_case  upper_camel_case",
-        }
-    )
-    or
-    "All tests passed"
+            M.to_upper_camel_case,
+            lines,
+            {
+                "   KebabCase",
+                "KebabCase  KebabCase",
+                "   SnakeCase",
+                "SnakeCase  SnakeCase",
+                "   LowerCamelCase",
+                "LowerCamelCase  LowerCamelCase",
+                "   UpperCamelCase",
+                "UpperCamelCase  UpperCamelCase",
+            }
+        )
+        or
+        assert_test(
+            M.to_lower_camel_case,
+            lines,
+            {
+                "   kebabCase",
+                "kebabCase  kebabCase",
+                "   snakeCase",
+                "snakeCase  snakeCase",
+                "   lowerCamelCase",
+                "lowerCamelCase  lowerCamelCase",
+                "   upperCamelCase",
+                "upperCamelCase  upperCamelCase",
+            }
+        )
+        or
+        assert_test(
+            M.to_kebab_case,
+            lines,
+            {
+                "   kebab-case",
+                "kebab-case  kebab-case",
+                "   snake-case",
+                "snake-case  snake-case",
+                "   lower-camel-case",
+                "lower-camel-case  lower-camel-case",
+                "   upper-camel-case",
+                "upper-camel-case  upper-camel-case",
+            }
+        )
+        or
+        assert_test(
+            M.to_snake_case,
+            lines,
+            {
+                "   kebab_case",
+                "kebab_case  kebab_case",
+                "   snake_case",
+                "snake_case  snake_case",
+                "   lower_camel_case",
+                "lower_camel_case  lower_camel_case",
+                "   upper_camel_case",
+                "upper_camel_case  upper_camel_case",
+            }
+        )
+        or
+        "All tests passed"
 end
 
 return M
