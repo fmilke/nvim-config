@@ -124,6 +124,19 @@ require("lazy").setup({
                 vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, { desc = 'Show signature' })
             end)
 
+            lsp.on_attach(function(client, buffer)
+                if client.name == 'lua_ls' then
+                    if client.supports_method('textDocument/formatting') then
+                        vim.api.nvim_create_autocmd('BufWritePre', {
+                            buffer = buffer,
+                            callback = function(args)
+                                vim.lsp.buf.format({ bufnr = args.buf, client = client.id })
+                            end
+                        })
+                    end
+                end
+            end)
+
             lsp.setup()
         end,
     },
