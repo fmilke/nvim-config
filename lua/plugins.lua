@@ -122,9 +122,7 @@ require("lazy").setup({
                 vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end, { desc = 'Go To Definition' })
                 vim.keymap.set('n', '<leader>K', function() vim.lsp.buf.hover() end, { desc = 'Hover' })
                 vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, { desc = 'Show signature' })
-            end)
 
-            lsp.on_attach(function(client, buffer)
                 if client.name == 'lua_ls' then
                     if client.supports_method('textDocument/formatting') then
                         vim.api.nvim_create_autocmd('BufWritePre', {
