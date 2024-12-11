@@ -35,3 +35,8 @@ vim.keymap.set('n', "<leader>oi", function()
         end
     end
 end, { desc = "Organize typescript imports" })
+
+-- format
+vim.keymap.set('n', '<leader>f', function()
+    vim.lsp.buf.format()
+end, { desc = "Format currrent buffer" })
