@@ -38,5 +38,11 @@ end, { desc = "Organize typescript imports" })
 
 -- format
 vim.keymap.set('n', '<leader>f', function()
-    vim.lsp.buf.format()
+    local name = vim.api.nvim_buf_get_name(0)
+
+    if name:lower():match('%.json$') then
+        vim.api.nvim_command("%!jq")
+    else
+        vim.lsp.buf.format()
+    end
 end, { desc = "Format currrent buffer" })
