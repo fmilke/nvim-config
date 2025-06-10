@@ -26,6 +26,6 @@ vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open explorer" })
 
-if vim.loop.os_uname().sysname == 'Windows_NT' then
-    vim.opt.shell = "pwsh.exe"
-end
+--if vim.loop.os_uname().sysname == 'Windows_NT' then
+--    vim.opt.shell = "pwsh.exe"
+--end
