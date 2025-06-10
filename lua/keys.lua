@@ -16,6 +16,15 @@ end, { desc = "Show line diagnostics" })
 
 -- change casing
 vim.keymap.set('x', "<leader>cc", require 'change_case'.change_casing, { desc = "Change casing" })
+vim.keymap.set('n', "<leader>cc", function()
+    vim.api.nvim_feedkeys('viw', 'm', false)
+    require 'change_case'.change_casing()
+end, { desc = "Change casing" })
+
+-- open todo file
+vim.keymap.set('n', '<leader>e', function()
+    vim.api.nvim_command("e E:/todo.md")
+end, { desc = "Open todo.md" })
 
 -- organize imports
 vim.keymap.set('n', "<leader>oi", function()
