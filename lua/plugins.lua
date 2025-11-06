@@ -210,4 +210,15 @@ require("lazy").setup({
     { "tpope/vim-abolish" },
     -- open text in other applications
     { "chrishrb/gx.nvim" },
+    -- reformat trees under cursor
+    {
+        "Wansmer/treesj",
+        keys = { "<leader>m" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+            require("treesj").setup({})
+        end
+    },
 })
