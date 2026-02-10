@@ -1,12 +1,30 @@
 local telescope_builtin = require("telescope.builtin")
 
+local get_visual_selection = function()
+    return table.concat(vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos(".")), "\n")
+end
+
 vim.keymap.set("n", "<leader>x", ":source %<CR>", { desc = "Source current file" })
 vim.keymap.set("n", "<C-L>", ":noh<CR>", { desc = "Clear search" })
 vim.keymap.set("n", "<leader>pf", telescope_builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>ps", function()
     local needle = vim.fn.input("Grep > ")
     if not (needle == nil or needle == "") then
-        telescope_builtin.grep_string({ search = needle })
+        local opts = {
+            "--ignore-case",
+        }
+        telescope_builtin.grep_string({ search = needle, opts })
+    end
+end, { desc = "Search for files containing keyword" })
+
+vim.keymap.set("v", "<leader>ps", function()
+    local needle = get_visual_selection()
+
+    if not (needle == nil or needle == "") then
+        local opts = {
+            "--ignore-case",
+        }
+        telescope_builtin.grep_string({ search = needle, opts })
     end
 end, { desc = "Search for files containing keyword" })
 
